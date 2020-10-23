@@ -38,8 +38,11 @@ BLACK = (0, 0, 0)
 GRAY = (200, 200, 200)
 DARK_GRAY = (50, 50, 50)
 
-MINIGAMES = {'monkeyclicker': {'easy': {'timermax': 600},
-                               'medium': {'timermax': 400},
-                               'hard': {'timermax': 250}
+MINIGAMES = {'monkeyclicker': {'easy': {'timermax': 600,
+                                        'amount': 10},
+                               'medium': {'timermax': 400,
+                                          'amount': 11},
+                               'hard': {'timermax': 250,
+                                        'amount': 12}
                                }
              }

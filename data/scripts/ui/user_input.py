@@ -56,6 +56,7 @@ class InputManager:
             if quit_attempt:
                 self.game.active_scene.terminate()
 
+            self.just_clicked = False
             if event.type == KEYDOWN:
                 if event.key == K_SPACE:
                     self.jump = True
@@ -83,4 +84,5 @@ class InputManager:
             if event.type == MOUSEBUTTONDOWN:
                 self.left_click = True
             if event.type == MOUSEBUTTONUP:
+                self.just_clicked = True
                 self.left_click = False

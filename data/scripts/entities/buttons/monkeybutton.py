@@ -10,6 +10,10 @@ class MonkeyButton(Button):
         colors = [GREEN, BLUE, RED, YELLOW, PURPLE]
         self.color = choice(colors)
 
+    def check_clicked(self):
+        if self.mouse_is_on() and self.game.input.left_click:
+            return self.action()
+
     def action(self):
         self.disable_and_hide()
         self.game.active_scene.next_button()

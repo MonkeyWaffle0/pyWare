@@ -20,7 +20,7 @@ class Button(GameEntity):
         print("you didn't override this in the child class")
 
     def check_clicked(self):
-        if self.mouse_is_on() and self.game.input.left_click:
+        if self.mouse_is_on() and self.game.input.just_clicked:
             return self.action()
 
     def disable_and_hide(self):

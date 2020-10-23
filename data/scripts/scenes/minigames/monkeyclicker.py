@@ -1,6 +1,6 @@
 from random import choice, randint
 
-from data.scripts.config import GREEN, BLUE, RED, YELLOW, PURPLE, DISPLAY_SIZE, WHITE
+from data.scripts.config import GREEN, BLUE, RED, YELLOW, PURPLE, DISPLAY_SIZE, WHITE, MINIGAMES
 from data.scripts.entities.buttons.monkeybutton import MonkeyButton
 from data.scripts.scenes.minigames.minigame import MiniGame
 
@@ -9,8 +9,7 @@ class MonkeyClicker(MiniGame):
     def __init__(self, game, name='monkeyclicker'):
         super().__init__(game, name)
         self.i = 0   # Last button pressed
-        # TODO: ajouter amount en variable dans les config
-        self.buttons = [self.generate_button() for _ in range(10)]
+        self.buttons = [self.generate_button() for _ in range(MINIGAMES[name][game.difficulty]['amount'])]
         for i, button in enumerate(self.buttons):
             if i != self.i:
                 button.active = False
@@ -29,6 +28,7 @@ class MonkeyClicker(MiniGame):
         self.i += 1
         if self.i == len(self.buttons):
             return self.win()
+        self.game.input.left_click = False
         self.current = self.buttons[self.i]
         self.current.enable_and_show()
 
