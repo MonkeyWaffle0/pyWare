@@ -163,7 +163,7 @@ class Entity(object):
         self.rotation = 0
         self.type = e_type  # used to determine animation set among other things
         self.action_timer = 0
-        self.action = ''
+        self.current_action = ''
         self.set_action('idle')  # overall action for the entity
         self.entity_data = {}
         self.alpha = None
@@ -185,7 +185,7 @@ class Entity(object):
         self.y = self.obj.y
         return collisions
 
-    def rect(self):
+    def get_rect(self):
         return pygame.Rect(self.x, self.y, self.size_x, self.size_y)
 
     def set_flip(self, boolean):
@@ -199,15 +199,7 @@ class Entity(object):
         self.animation_frame = 0
 
     def set_action(self, action_id, force=False):
-        if (self.action == action_id) and (force is False):
-            pass
-        else:
-            self.action = action_id
-            anim = animation_higher_database[self.type][action_id]
-            self.animation = anim[0]
-            self.set_animation_tags(anim[1])
-            self.animation_frame = 0
-            self.animation_progress = 0
+        pass
 
     def get_entity_angle(self, entity_2):
         x1 = self.x + int(self.size_x / 2)
@@ -337,25 +329,7 @@ def get_frame(frame_id):
 
 
 def load_animations2(path):
-    global animation_higher_database, e_colorkey
-    try:
-        anim_config = json.loads(read_f(path + '/anim_conf.json'))
-    except FileNotFoundError:
-        anim_config = {}
-    animation_sets = os.listdir(path)
-    for animation_set in animation_sets:
-        if len(animation_set.split('.')) == 1:
-            animation_list = os.listdir(path + '/' + animation_set)
-            for animation in animation_list:
-                frame_count = len(os.listdir(path + '/' + animation_set + '/' + animation))
-                path_2 = animation_set + '/' + animation
-                if path_2 not in anim_config:
-                    anim_config[path_2] = {'frames': [[v, 5] for v in range(frame_count)], 'tags': ['loop']}
-                anim = animation_sequence(anim_config[path_2]['frames'], path + '/' + path_2 + '/', e_colorkey)
-                if animation_set not in animation_higher_database:
-                    animation_higher_database[animation_set] = {}
-                animation_higher_database[animation_set][animation] = [anim.copy(), anim_config[path_2]['tags']]
-    write_f(path + '/anim_conf.json', json.dumps(anim_config))
+    pass
 
 
 # particles
@@ -375,20 +349,7 @@ particle_images = {}
 
 
 def load_particle_images(path):
-    global particle_images, e_colorkey
-    file_list = os.listdir(path)
-    for folder in file_list:
-        try:
-            img_list = os.listdir(path + '/' + folder)
-            img_list = particle_file_sort(img_list)
-            images = []
-            for img in img_list:
-                images.append(pygame.image.load(path + '/' + folder + '/' + img).convert())
-            for img in images:
-                img.set_colorkey(e_colorkey)
-            particle_images[folder] = images.copy()
-        except Exception:
-            pass
+    pass
 
 
 class Particle(object):

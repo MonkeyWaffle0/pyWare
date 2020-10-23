@@ -9,5 +9,3 @@ class GUI:
 
     def update(self):
         self.render_overlay()
-        self.game.assets.font.render('fps: ' + str(int(sum(self.game.fps.fps_log) / len(self.game.fps.fps_log))),
-                                     self.game.window.display, (2, 2))

@@ -22,12 +22,11 @@ class Transitions:
         self.reloaded_map = False
 
     def update(self):
-
         self.time_remaining -= 1
         if self.time_remaining <= 0:
             self.game.render_mode = 'game'
 
-        self.game.handle_game_frame()
+        self.game.active_scene.handle_game_frame()
 
         if (not self.reloaded_map) and (self.time_remaining < self.max_time / 2):
             self.game.level.load_map(self.game.level.transition_info[0])

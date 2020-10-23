@@ -12,12 +12,17 @@ class GameEntity(e.Entity):
         self.jump_max = 2
         self.jumps = self.jump_max
         self.speed = 3
-        self.set_offset(self.entities_ptr.entity_config[e_type]['offset'])
         self.air_time = 0
         self.drop_through = 0
         self.in_water = False
+        self.game.entities.entities.append(self)
 
     def process_collisions(self, movement):
         return self.move(movement, self.game.entities.collisions.collision_tiles,
                          self.game.entities.collisions.collision_ramps,
                          self.game.entities.collisions.collision_platforms)
+
+    def mouse_is_on(self):
+        if self.get_rect().collidepoint(self.game.input.mouse_pos):
+            return True
+        return False

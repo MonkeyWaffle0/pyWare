@@ -6,7 +6,8 @@ from data.scripts.config import *
 
 
 class InputManager:
-    def __init__(self):
+    def __init__(self, game):
+        self.game = game
         self.right = False
         self.left = False
         self.down_press = False
@@ -41,17 +42,21 @@ class InputManager:
         self.mouse_pos = pygame.mouse.get_pos()
         self.mouse_pos = [self.mouse_pos[0] / DISPLAY_SCALE, self.mouse_pos[1] / DISPLAY_SCALE]
 
+        pressed_keys = pygame.key.get_pressed()
         for event in pygame.event.get():
-            if event.type == QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    self.left_click = True
+            quit_attempt = False
+            if event.type == pygame.QUIT:
+                quit_attempt = True
+            elif event.type == pygame.KEYDOWN:
+                alt_pressed = pressed_keys[pygame.K_LALT] or \
+                              pressed_keys[pygame.K_RALT]
+                if event.key == pygame.K_ESCAPE or (event.key == pygame.K_F4 and alt_pressed):
+                    quit_attempt = True
+
+            if quit_attempt:
+                self.game.active_scene.terminate()
+
             if event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
-                    pygame.quit()
-                    sys.exit()
                 if event.key == K_SPACE:
                     self.jump = True
                 if event.key == K_d:
@@ -75,3 +80,7 @@ class InputManager:
                     self.down = False
                 if event.key == K_w:
                     self.up = False
+            if event.type == MOUSEBUTTONDOWN:
+                self.left_click = True
+            if event.type == MOUSEBUTTONUP:
+                self.left_click = False

@@ -122,3 +122,7 @@ def normalize(num, amt):
     else:
         num = 0
     return num
+
+
+def mouse_over(entity):
+    return entity.get_rect().collidepoint(pygame.mouse.get_pos())

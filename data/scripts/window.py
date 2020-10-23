@@ -9,7 +9,6 @@ class GameWindow:
 
         self.display = pygame.Surface(DISPLAY_SIZE)
         self.size = DISPLAY_SIZE
-        pygame.mouse.set_visible(False)
 
     def update(self, game):
         self.screen.blit(pygame.transform.scale(self.display, self.screen.get_size()), (0, 0))
