@@ -111,7 +111,7 @@ def blit_center(surf, surf2, pos):
 
 
 def get_center_pos(surf):
-    return [surf.get_width() / 2, surf.get_height() / 2]
+    return [int(surf.get_width() / 2), int(surf.get_height() / 2)]
 
 
 def normalize(num, amt):

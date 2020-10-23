@@ -14,10 +14,14 @@ class MiniGame(Scene):
         return TimeBar(self.game, self.game.entities, "timebar", 0, 0, DISPLAY_SIZE[0], 20, max_time)
 
     def update_timebar(self):
-        self.timebar.update()
+        self.timebar.new_frame()
 
     def win(self):
-        self.switch_to(Transition(self))
+        self.game.transitions.start_transition()
+        self.game.render_mode = 'transition'
 
     def lost(self):
         self.switch_to(Transition(self))
+
+    def reset(self):
+        self.__init__(self.game, self.name)

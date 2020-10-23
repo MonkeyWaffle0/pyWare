@@ -52,6 +52,9 @@ class Game:
         while self.active_scene is not None:
             self.update()
 
+    def next_game(self):
+        self.active_scene.next = MonkeyClicker(self)
+
 
 if __name__ == '__main__':
     Game().run()

@@ -18,16 +18,15 @@ class TimeBar(GameEntity):
         self.timer = 0
         self.finished = False
 
-    def calculate_size(self):
+    def new_frame(self):
+        self.timer += 1
         self.percent = 1 - (self.timer / self.timer_max)
         self.width = DISPLAY_SIZE[0] * self.percent
+        self.update_variable(self.x, self.y, self.width, self.height)
 
     def check_finished(self):
         if self.timer == self.timer_max:
             self.finished = True
 
     def update(self):
-        self.timer += 1
-        self.calculate_size()
-        self.update_variable(self.x, self.y, self.width, self.height)
         pygame.draw.rect(self.game.window.display, self.color, (self.get_rect()))
