@@ -146,14 +146,14 @@ def blit_center(surf, surf2, pos):
 class Entity(object):
     global animation_database, animation_higher_database
 
-    def __init__(self, x, y, size_x, size_y, e_type):  # x, y, size_x, size_y, type
+    def __init__(self, x, y, width, height, e_type):  # x, y, width, height, type
         self.x = x
         self.y = y
         self.original_y = y
         self.original_x = x
-        self.size_x = size_x
-        self.size_y = size_y
-        self.obj = PhysicsObj(x, y, size_x, size_y)
+        self.width = width
+        self.height = height
+        self.obj = PhysicsObj(x, y, width, height)
         self.animation = None
         self.image = None
         self.animation_frame = 0
@@ -179,6 +179,12 @@ class Entity(object):
         self.obj.rect.x = x
         self.obj.rect.y = y
 
+    def update_variable(self, x, y, width, height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+
     def move(self, momentum, platforms, ramps, thin_platforms):
         collisions = self.obj.move(momentum, platforms, ramps, thin_platforms)
         self.x = self.obj.x
@@ -186,7 +192,7 @@ class Entity(object):
         return collisions
 
     def get_rect(self):
-        return pygame.Rect(self.x, self.y, self.size_x, self.size_y)
+        return pygame.Rect(self.x, self.y, self.width, self.height)
 
     def set_flip(self, boolean):
         self.flip = boolean
@@ -202,10 +208,10 @@ class Entity(object):
         pass
 
     def get_entity_angle(self, entity_2):
-        x1 = self.x + int(self.size_x / 2)
-        y1 = self.y + int(self.size_y / 2)
-        x2 = entity_2.x + int(entity_2.size_x / 2)
-        y2 = entity_2.y + int(entity_2.size_y / 2)
+        x1 = self.x + int(self.width / 2)
+        y1 = self.y + int(self.height / 2)
+        x2 = entity_2.x + int(entity_2.width / 2)
+        y2 = entity_2.y + int(entity_2.height / 2)
         angle = math.atan((y2 - y1) / (x2 - x1))
         if x2 < x1:
             angle += math.pi
@@ -220,8 +226,8 @@ class Entity(object):
         return math.sqrt(dis_x ** 2 + dis_y ** 2)
 
     def get_center(self):
-        x = self.x + int(self.size_x / 2)
-        y = self.y + int(self.size_y / 2)
+        x = self.x + int(self.width / 2)
+        y = self.y + int(self.height / 2)
         return [x, y]
 
     def clear_animation(self):
@@ -370,9 +376,7 @@ class Particle(object):
     def draw(self, surface, scroll):
         global particle_images
         if self.render:
-            # if self.frame > len(particle_images[self.type]):
-            #    self.frame = len(particle_images[self.type])
-            if self.color == None:
+            if self.color is None:
                 blit_center(surface, particle_images[self.type][int(self.frame)],
                             (self.x - scroll[0], self.y - scroll[1]))
             else:

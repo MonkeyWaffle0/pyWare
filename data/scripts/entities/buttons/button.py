@@ -14,6 +14,7 @@ class Button(GameEntity):
         self.x = x
         self.y = y
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        self.active = True
 
     def action(self):
         print("you didn't override this in the child class")
@@ -22,14 +23,16 @@ class Button(GameEntity):
         if self.mouse_is_on() and self.game.input.left_click:
             return self.action()
 
+    def disable_and_hide(self):
+        self.active = False
+        self.visible = False
+
+    def enable_and_show(self):
+        self.active = True
+        self.visible = True
+
     def update(self):
-        self.check_clicked()
-        pygame.draw.rect(self.game.window.display, self.color, self.rect)
-
-
-class StartButton(Button):
-    def __init__(self, game, entities, e_type, x, y, width, height):
-        super().__init__(game, entities, e_type, x, y, width, height)
-
-    def action(self):
-        self.game.active_scene.switch_to(GameScene())
+        if self.active:
+            self.check_clicked()
+        if self.visible:
+            pygame.draw.rect(self.game.window.display, self.color, self.rect)

@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 
 from data.scripts.scenes.main_menu import MainMenu
+from data.scripts.scenes.minigames.monkeyclicker import MonkeyClicker
 from data.scripts.ui.fps import FPS
 from data.scripts.ui.gui import GUI
 from data.scripts.ui.user_input import InputManager
@@ -17,13 +18,16 @@ class Game:
         pygame.init()
         pygame.display.set_caption('game base')
 
+        self.difficulty = 'easy'
+
         self.window = GameWindow()
         self.input = InputManager(self)
         self.entities = EntityManager(self)
         self.gui = GUI(self)
-        self.fps = FPS()
+        self.fps = 60
+        self.clock = pygame.time.Clock()
         self.transitions = Transitions(self)
-        self.active_scene = MainMenu(self)
+        self.active_scene = MonkeyClicker(self)
 
         self.render_mode = 'game'
 
@@ -31,7 +35,7 @@ class Game:
         self.game_timer = 0
 
     def update(self):
-        self.fps.frame_begin()
+        # self.fps.frame_begin()
 
         if self.render_mode == 'game':
             self.active_scene.handle_game_frame()
@@ -40,8 +44,9 @@ class Game:
             self.transitions.update()
 
         self.gui.update()
-        self.fps.frame_end()
+        # self.fps.frame_end()
         self.window.update(self)
+        self.clock.tick(self.fps)
 
     def run(self):
         while self.active_scene is not None:

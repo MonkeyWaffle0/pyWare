@@ -16,6 +16,7 @@ class GameEntity(e.Entity):
         self.drop_through = 0
         self.in_water = False
         self.game.entities.entities.append(self)
+        self.visible = True
 
     def process_collisions(self, movement):
         return self.move(movement, self.game.entities.collisions.collision_tiles,
