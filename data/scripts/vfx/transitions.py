@@ -23,7 +23,7 @@ class Transitions:
     def update(self):
         self.time_remaining -= 1
         if self.time_remaining <= 0:
-            self.game.next_game()
+            self.game.minigame_manager.next_game()
             self.game.render_mode = 'game'
 
         self.game.active_scene.handle_game_frame()

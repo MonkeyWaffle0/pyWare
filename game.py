@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 
+from data.scripts.minigame_manager import MiniGameManager
 from data.scripts.scenes.main_menu import MainMenu
 from data.scripts.scenes.minigames.monkeyclicker import MonkeyClicker
 from data.scripts.ui.fps import FPS
@@ -27,11 +28,11 @@ class Game:
         self.fps = 60
         self.clock = pygame.time.Clock()
         self.transitions = Transitions(self)
-        self.active_scene = MonkeyClicker(self)
+        self.minigame_manager = MiniGameManager(self)
+        self.active_scene = self.minigame_manager.choose_game()
 
         self.render_mode = 'game'
 
-        self.running = True
         self.game_timer = 0
 
     def update(self):
@@ -51,9 +52,6 @@ class Game:
     def run(self):
         while self.active_scene is not None:
             self.update()
-
-    def next_game(self):
-        self.active_scene.next = MonkeyClicker(self)
 
 
 if __name__ == '__main__':
