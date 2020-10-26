@@ -1,6 +1,6 @@
 from random import choice
 
-from data.scripts.scenes.minigames.monkeyclicker import MonkeyClicker
+from data.scripts.scenes.minigames.monkeyclicker.monkeyclicker import MonkeyClicker
 
 
 class MiniGameManager:

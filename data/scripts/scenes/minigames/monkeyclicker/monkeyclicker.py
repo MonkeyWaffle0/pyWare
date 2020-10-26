@@ -1,14 +1,15 @@
-from random import choice, randint
+from random import randint
 
-from data.scripts.config import GREEN, BLUE, RED, YELLOW, PURPLE, DISPLAY_SIZE, WHITE, MINIGAMES
-from data.scripts.entities.buttons.monkeybutton import MonkeyButton
+from data.scripts.config import DISPLAY_SIZE, MINIGAMES
+from data.scripts.scenes.minigames.monkeyclicker.lifepoint import LifePoint
+from data.scripts.scenes.minigames.monkeyclicker.monkeybutton import MonkeyButton
 from data.scripts.scenes.minigames.minigame import MiniGame
 
 
 class MonkeyClicker(MiniGame):
     def __init__(self, game, name='monkeyclicker'):
         super().__init__(game, name)
-        self.i = 0   # Last button pressed
+        self.i = 0  # Last button pressed
         self.buttons = [self.generate_button() for _ in range(MINIGAMES[name][game.difficulty]['amount'])]
         for i, button in enumerate(self.buttons):
             if i != self.i:
@@ -16,10 +17,10 @@ class MonkeyClicker(MiniGame):
                 button.visible = False
         self.current = self.buttons[self.i]
         self.display = game.window.display
-        # self.lives = [LifePoint(x * LifePoint.spacing) for x in range(1, 4)]
+        self.lives = [LifePoint(self.game, self.game.entities, x * DISPLAY_SIZE[0] * 0.1) for x in range(1, 4)]
 
     def update(self):
-        # Need to add a parameter for win/lose
+        # TODO: add win/lose
         if self.is_lost():
             return self.lost()
         self.update_timebar()
@@ -33,8 +34,8 @@ class MonkeyClicker(MiniGame):
         self.current.enable_and_show()
 
     def lost_life(self):
-        # self.lives.remove(self.lives[-1])
-        pass
+        self.game.entities.entities.remove(self.lives[-1])
+        self.lives.remove(self.lives[-1])
 
     def is_lost(self):
         if self.timebar.finished:
@@ -47,4 +48,4 @@ class MonkeyClicker(MiniGame):
         height = randint(50, 100)
         x = randint(20, DISPLAY_SIZE[0] - (width + 50))
         y = randint(20, DISPLAY_SIZE[1] - (height + 50))
-        return MonkeyButton(self.game, self.game.entities, 'button', x, y, width, height)
+        return MonkeyButton(self.game, self.game.entities, x, y, width, height)

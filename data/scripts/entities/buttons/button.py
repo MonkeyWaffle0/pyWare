@@ -5,7 +5,7 @@ from data.scripts.entities.base_entities import GameEntity
 
 
 class Button(GameEntity):
-    def __init__(self, game, entities, e_type, x, y, width, height):
+    def __init__(self, game, entities, x, y, width, height, e_type='button'):
         super().__init__(game, entities, e_type, x, y, width, height)
         self.game = game
         self.color = RED

@@ -1,10 +1,6 @@
 import pygame
-from pygame.locals import *
 
 from data.scripts.minigame_manager import MiniGameManager
-from data.scripts.scenes.main_menu import MainMenu
-from data.scripts.scenes.minigames.monkeyclicker import MonkeyClicker
-from data.scripts.ui.fps import FPS
 from data.scripts.ui.gui import GUI
 from data.scripts.ui.user_input import InputManager
 
