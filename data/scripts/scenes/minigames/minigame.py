@@ -20,8 +20,10 @@ class MiniGame(Scene):
         self.game.transitions.start_transition()
         self.game.render_mode = 'transition'
 
-    def lost(self):
-        self.switch_to(Transition(self))
+    def lose(self):
+        print('WESH')
+        self.game.transitions.start_transition()
+        self.game.render_mode = 'transition'
 
     def reset(self):
         self.__init__(self.game, self.name)

@@ -23,8 +23,6 @@ class TimeBar(GameEntity):
         self.percent = 1 - (self.timer / self.timer_max)
         self.width = DISPLAY_SIZE[0] * self.percent
         self.update_variable(self.x, self.y, self.width, self.height)
-
-    def check_finished(self):
         if self.timer == self.timer_max:
             self.finished = True
 

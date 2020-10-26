@@ -37,7 +37,6 @@ class Transitions:
 
         if self.type == 'enter':
             mask_surf = pygame.Surface(DISPLAY_SIZE)
-
             if self.time_remaining / self.max_time >= 0.5:
                 pygame.draw.circle(mask_surf,
                                    (255, 255, 255),
